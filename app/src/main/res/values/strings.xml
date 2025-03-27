@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TransmissionLineAnalysis</string>
+    <string-array name="voltage_options">
+        <item>132KV</item>
+        <item>500KV</item>
+    </string-array>
+</resources>
