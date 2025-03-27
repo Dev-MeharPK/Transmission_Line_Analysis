@@ -87,7 +87,8 @@
                 android:layout_height="match_parent"
                 android:hint="Enter Power (MW)"
                 android:padding="12dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:inputType="numberDecimal" /> <!-- Allow only numeric input with decimal -->
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Power Factor -->
@@ -119,7 +120,8 @@
                 android:layout_height="match_parent"
                 android:hint="Enter Power Factor (0-1)"
                 android:padding="12dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:inputType="numberDecimal" /> <!-- Allow only numeric input with decimal -->
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Calculate Button -->
