@@ -38,60 +38,42 @@ public class MainActivity extends AppCompatActivity {
         voltageSpinner.setAdapter(adapter);
 
         // Ensure dropdown opens on click
-        voltageSpinner.setOnClickListener(v -> voltageSpinner.showDropDown());
-
-        // Change border color when selecting voltage
-        voltageSpinner.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                setPurpleBorder(voltageLayout);
-            }
+        voltageSpinner.setOnClickListener(v -> {
+            voltageSpinner.requestFocus();
+            voltageSpinner.showDropDown();
         });
 
-        voltageSpinner.setOnItemClickListener((parent, view, position, id) -> {
-            setPurpleBorder(voltageLayout);
-        });
-
-        // Apply border change for power & power factor inputs
-        setFocusChangeListener(powerInput, powerLayout);
-        setFocusChangeListener(powerFactorInput, powerFactorLayout);
+        // Show Toast when voltage is selected
+        voltageSpinner.setOnItemClickListener((parent, view, position, id) ->
+                Toast.makeText(this, "Voltage: " + voltageOptions[position], Toast.LENGTH_SHORT).show()
+        );
 
         // Handle calculate button click
         calculateButton.setOnClickListener(v -> {
-            String selectedVoltage = voltageSpinner.getText().toString();
-            String power = powerInput.getText().toString();
-            String powerFactor = powerFactorInput.getText().toString();
+            String voltage = voltageSpinner.getText().toString().trim();
+            String power = powerInput.getText().toString().trim();
+            String powerFactor = powerFactorInput.getText().toString().trim();
 
-            if (selectedVoltage.isEmpty() || power.isEmpty() || powerFactor.isEmpty()) {
-                Toast.makeText(MainActivity.this, "Please fill all fields!", Toast.LENGTH_SHORT).show();
-            } else {
-                try {
-                    double powerValue = Double.parseDouble(power);
-                    double powerFactorValue = Double.parseDouble(powerFactor);
-
-                    // Validate Power Factor is between 0 and 1
-                    if (powerFactorValue < 0 || powerFactorValue > 1) {
-                        Toast.makeText(MainActivity.this, "Power Factor should be between 0 and 1", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Calculation Started!", Toast.LENGTH_SHORT).show();
-                    }
-                } catch (NumberFormatException e) {
-                    Toast.makeText(MainActivity.this, "Please enter valid numbers", Toast.LENGTH_SHORT).show();
-                }
+            if (voltage.isEmpty()) {
+                Toast.makeText(this, "Select voltage!", Toast.LENGTH_SHORT).show();
+                return;
             }
-        });
-    }
+            if (power.isEmpty() || powerFactor.isEmpty()) {
+                Toast.makeText(this, "Fill all fields!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-    // Set purple border and hint
-    private void setPurpleBorder(TextInputLayout layout) {
-        layout.setBoxStrokeColor(Color.parseColor("#6200EE")); // Purple Border
-        layout.setHintTextColor(ColorStateList.valueOf(Color.parseColor("#6200EE"))); // Purple Hint
-    }
+            try {
+                double powerValue = Double.parseDouble(power);
+                double pfValue = Double.parseDouble(powerFactor);
 
-    // Handle focus change for EditText fields
-    private void setFocusChangeListener(TextInputEditText editText, TextInputLayout layout) {
-        editText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                setPurpleBorder(layout);
+                if (pfValue < 0 || pfValue > 1) {
+                    Toast.makeText(this, "Power Factor: 0 - 1", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, voltage + " | " + powerValue + "MW | PF: " + pfValue, Toast.LENGTH_LONG).show();
+                }
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Enter valid numbers!", Toast.LENGTH_SHORT).show();
             }
         });
     }
