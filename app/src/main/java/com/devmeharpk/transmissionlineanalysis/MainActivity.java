@@ -1,7 +1,5 @@
 package com.devmeharpk.transmissionlineanalysis;
 
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -13,9 +11,9 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView voltageSpinner;
-    private TextInputLayout voltageLayout, powerLayout, powerFactorLayout;
-    private TextInputEditText powerInput, powerFactorInput;
+    private AutoCompleteTextView voltageSpinner, codeOfConductorSpinner;
+    private TextInputLayout voltageLayout, powerLayout, powerFactorLayout, lengthOfLineLayout, codeOfConductorLayout;
+    private TextInputEditText powerInput, powerFactorInput, lengthOfLineInput;
     private Button calculateButton;
 
     @Override
@@ -25,40 +23,54 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize UI elements
         voltageSpinner = findViewById(R.id.voltageSpinner);
+        codeOfConductorSpinner = findViewById(R.id.codeOfConductorSpinner);
         voltageLayout = findViewById(R.id.voltageLayout);
         powerLayout = findViewById(R.id.powerLayout);
         powerFactorLayout = findViewById(R.id.powerFactorLayout);
+        lengthOfLineLayout = findViewById(R.id.lengthOfLineLayout);
+        codeOfConductorLayout = findViewById(R.id.codeOfConductorLayout);
         powerInput = findViewById(R.id.powerInput);
         powerFactorInput = findViewById(R.id.powerFactorInput);
+        lengthOfLineInput = findViewById(R.id.lengthOfLineInput);
         calculateButton = findViewById(R.id.calculateButton);
 
-        // Set up dropdown menu
+        // Set up Voltage dropdown menu
         String[] voltageOptions = {"132KV", "500KV"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, voltageOptions);
-        voltageSpinner.setAdapter(adapter);
+        ArrayAdapter<String> voltageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, voltageOptions);
+        voltageSpinner.setAdapter(voltageAdapter);
 
-        // Ensure dropdown opens on click
-        voltageSpinner.setOnClickListener(v -> {
-            voltageSpinner.requestFocus();
-            voltageSpinner.showDropDown();
-        });
-
-        // Show Toast when voltage is selected
+        voltageSpinner.setOnClickListener(v -> voltageSpinner.showDropDown());
         voltageSpinner.setOnItemClickListener((parent, view, position, id) ->
                 Toast.makeText(this, "Voltage: " + voltageOptions[position], Toast.LENGTH_SHORT).show()
         );
 
-        // Handle calculate button click
+        // Set up Code of Conductor dropdown menu
+        String[] conductorOptions = {"Alpha", "Beta"};
+        ArrayAdapter<String> conductorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, conductorOptions);
+        codeOfConductorSpinner.setAdapter(conductorAdapter);
+
+        codeOfConductorSpinner.setOnClickListener(v -> codeOfConductorSpinner.showDropDown());
+        codeOfConductorSpinner.setOnItemClickListener((parent, view, position, id) ->
+                Toast.makeText(this, "Conductor: " + conductorOptions[position], Toast.LENGTH_SHORT).show()
+        );
+
+        // Handle Calculate button click
         calculateButton.setOnClickListener(v -> {
             String voltage = voltageSpinner.getText().toString().trim();
+            String conductorCode = codeOfConductorSpinner.getText().toString().trim();
             String power = powerInput.getText().toString().trim();
             String powerFactor = powerFactorInput.getText().toString().trim();
+            String lengthOfLine = lengthOfLineInput.getText().toString().trim();
 
             if (voltage.isEmpty()) {
                 Toast.makeText(this, "Select voltage!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (power.isEmpty() || powerFactor.isEmpty()) {
+            if (conductorCode.isEmpty()) {
+                Toast.makeText(this, "Select Conductor Code!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (power.isEmpty() || powerFactor.isEmpty() || lengthOfLine.isEmpty()) {
                 Toast.makeText(this, "Fill all fields!", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -66,11 +78,14 @@ public class MainActivity extends AppCompatActivity {
             try {
                 double powerValue = Double.parseDouble(power);
                 double pfValue = Double.parseDouble(powerFactor);
+                double lineLength = Double.parseDouble(lengthOfLine);
 
                 if (pfValue < 0 || pfValue > 1) {
                     Toast.makeText(this, "Power Factor: 0 - 1", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, voltage + " | " + powerValue + "MW | PF: " + pfValue, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, voltage + " | " + powerValue + "MW | PF: " + pfValue
+                                    + " | Line: " + lineLength + "km | Conductor: " + conductorCode,
+                            Toast.LENGTH_LONG).show();
                 }
             } catch (NumberFormatException e) {
                 Toast.makeText(this, "Enter valid numbers!", Toast.LENGTH_SHORT).show();

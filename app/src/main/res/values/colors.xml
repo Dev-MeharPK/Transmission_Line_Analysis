@@ -6,4 +6,6 @@
     <color name="white">#FFFFFF</color>  <!-- White Background -->
     <color name="purple_700">#6200EE</color>
     <color name="gray">#808080</color>
+    <color name="purple">#9C27B0</color> <!-- Purple color -->
+
 </resources>

@@ -34,14 +34,13 @@
             android:textColor="@color/black"
             android:layout_marginBottom="4dp" />
 
-        <!-- Voltage Selection with TextInputLayout -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/voltageLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Select Voltage"
             app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/gray"
+            app:boxStrokeColor="@drawable/focused_border"
             app:boxStrokeWidth="2dp"
             app:boxCornerRadiusTopStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
@@ -71,7 +70,7 @@
             android:id="@+id/powerLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/gray"
+            app:boxStrokeColor="@drawable/focused_border"
             app:boxStrokeWidth="2dp"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusTopStart="12dp"
@@ -104,7 +103,7 @@
             android:id="@+id/powerFactorLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/gray"
+            app:boxStrokeColor="@drawable/focused_border"
             app:boxStrokeWidth="2dp"
             app:boxBackgroundMode="outline"
             app:boxCornerRadiusTopStart="12dp"
@@ -122,6 +121,73 @@
                 android:digits="0,1,2,3,4,5,6,7,8,9,."
                 android:padding="12dp"
                 android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Length of Line -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Length of Line (km)"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lengthOfLineLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:boxStrokeColor="@drawable/focused_border"
+            app:boxStrokeWidth="2dp"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/lengthOfLineInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Enter Length (km)"
+                android:inputType="numberDecimal"
+                android:padding="12dp"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Code of Conductor -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Code of Conductor"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/codeOfConductorLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Select Code"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@drawable/focused_border"
+            app:boxStrokeWidth="2dp"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/codeOfConductorSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="none"
+                android:padding="12dp"
+                android:textColor="@color/black"
+                android:entries="@array/conductor_codes" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Calculate Button -->
