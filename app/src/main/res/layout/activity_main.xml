@@ -190,6 +190,37 @@
                 android:entries="@array/conductor_codes" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Radius -->
+        <TextView
+            android:id="@+id/radiusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Radius: -- cm"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="8dp" />
+
+        <!-- Area -->
+        <TextView
+            android:id="@+id/areaValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Area: -- m²"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp" />
+
+        <!-- Resistance -->
+        <TextView
+            android:id="@+id/resistanceValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resistance: -- ohm/km"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="4dp" />
+
+
         <!-- Calculate Button -->
         <Button
             android:id="@+id/calculateButton"
@@ -201,6 +232,8 @@
             android:background="@drawable/rounded_button"
             android:layout_marginTop="20dp"
             android:padding="12dp" />
+
+
 
     </LinearLayout>
 </ScrollView>
